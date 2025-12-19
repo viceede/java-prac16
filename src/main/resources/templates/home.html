@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашняя страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .welcome {
+            color: #333;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .feedback-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .feedback-form h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 15px 0;
+        }
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 15px 0;
+        }
+        .feedback-list {
+            margin-top: 30px;
+        }
+        .feedback-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        .feedback-item:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1 class="welcome">Добро пожаловать, <span th:text="${username}">Пользователь</span>!</h1>
+    <a th:href="@{/logout}" class="logout-btn">Выйти</a>
+</div>
+
+<!-- Форма обратной связи (Вариант 1) -->
+<div class="feedback-form">
+    <h2>Обратная связь</h2>
+
+    <div th:if="${feedbackSuccess}" class="success" th:text="${feedbackSuccess}"></div>
+    <div th:if="${feedbackError}" class="error" th:text="${feedbackError}"></div>
+
+    <form th:action="@{/home}" method="post">
+        <input type="hidden" name="formType" value="feedback" />
+
+        <div class="form-group">
+            <label>Имя:</label>
+            <input type="text" name="name" required />
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+            <label>Сообщение:</label>
+            <textarea name="message" required></textarea>
+        </div>
+
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+<!-- Список отправленных отзывов -->
+<div class="feedback-list" th:if="${feedbacks} and ${feedbacks.size()} > 0">
+    <h2>Отправленные отзывы:</h2>
+    <div th:each="feedback : ${feedbacks}" class="feedback-item" th:text="${feedback}">
+        Пример отзыва
+    </div>
+</div>
+
+<div class="feedback-list" th:unless="${feedbacks} and ${feedbacks.size()} > 0">
+    <p>Пока нет отправленных отзывов. Будьте первым!</p>
+</div>
+</body>
+</html>
