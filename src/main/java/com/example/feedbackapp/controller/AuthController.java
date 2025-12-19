@@ -12,8 +12,7 @@ import java.util.List;
 public class AuthController {
     private User registeredUser;
     private boolean isAuthenticated = false;
-    private List<String> feedbackList = new ArrayList<>(); // Для хранения отзывов
-
+    private List<String> feedbackList = new ArrayList<>();
     @GetMapping("/")
     public String showRegisterPage() {
         return "register";
@@ -56,7 +55,6 @@ public class AuthController {
             return "redirect:/login";
         }
         model.addAttribute("username", registeredUser.getUsername());
-        // Добавляем список отзывов в модель
         model.addAttribute("feedbacks", feedbackList);
         return "home";
     }
@@ -72,7 +70,6 @@ public class AuthController {
             return "redirect:/login";
         }
 
-        // Обработка формы обратной связи (Вариант 1)
         if ("feedback".equals(formType)) {
             if (name == null || name.isEmpty() ||
                     email == null || email.isEmpty() ||

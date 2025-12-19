@@ -5,7 +5,6 @@ public class Feedback {
     private String email;
     private String message;
 
-    // Конструкторы
     public Feedback() {}
 
     public Feedback(String name, String email, String message) {
@@ -14,7 +13,6 @@ public class Feedback {
         this.message = message;
     }
 
-    // Геттеры и сеттеры
     public String getName() {
         return name;
     }

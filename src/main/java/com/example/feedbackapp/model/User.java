@@ -4,7 +4,6 @@ public class User {
     private String username;
     private String password;
 
-    // Конструкторы
     public User() {}
 
     public User(String username, String password) {
@@ -12,7 +11,6 @@ public class User {
         this.password = password;
     }
 
-    // Геттеры и сеттеры
     public String getUsername() {
         return username;
     }
